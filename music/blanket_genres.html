@@ -1,0 +1,522 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+		<!-- Origin Trial Token, feature = WebVR (For Chrome M62+), origin = https://threejs.org -->
+		<meta http-equiv="origin-trial" data-feature="WebVR (For Chrome M62+)" data-expires="2018-06-19" content="Alxt96tYGgIr9l6EXU0eeI360zcmzOY6Kuo3kcTfBGIRDOQbgFIZKRQ1joExQ74WZr1einsE+cUMHgSclNHCQQ4AAABQeyJvcmlnaW4iOiJodHRwczovL3RocmVlanMub3JnOjQ0MyIsImZlYXR1cmUiOiJXZWJWUjEuMU02MiIsImV4cGlyeSI6MTUyOTM5NzgyOH0=">
+		<!-- Origin Trial Token, feature = WebXR Device API, origin = https://threejs.org -->
+		<meta http-equiv="origin-trial" data-feature="WebXR Device API" data-expires="2018-06-15" content="AtJH9g6nn0B87bnjJt+9m1joZXEYDmLSlRvtMr5qJD52hMcm3S86S7jg5I7y2I5cgQglE0rzsXzti5DECQLb8QkAAABQeyJvcmlnaW4iOiJodHRwczovL3RocmVlanMub3JnOjQ0MyIsImZlYXR1cmUiOiJXZWJYUkRldmljZSIsImV4cGlyeSI6MTUyOTA4NDY2OH0=">
+		<!-- Origin Trial Token, feature = WebXR Gamepad Support, origin = https://threejs.org -->
+		<meta http-equiv="origin-trial" data-feature="WebXR Gamepad Support" data-expires="2018-06-15" content="Aihhr0yXkVlCKF0DIpTbH8WX7ZmEexUhI/95+t8aoLfvBkePMiZ/iOoDPU3xefyfuczkDahH1L6eiPvRsuzITAAAAABYeyJvcmlnaW4iOiJodHRwczovL3RocmVlanMub3JnOjQ0MyIsImZlYXR1cmUiOiJXZWJYUkdhbWVwYWRTdXBwb3J0IiwiZXhwaXJ5IjoxNTI5MDg0NjY4fQ==">
+    <title>{% block title %}MB{% endblock %}</title>
+    {% load staticfiles %}
+    <link rel="shortcut icon" type="image/png" href="{%  static 'favicon.ico' %}"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Satisfy' rel='stylesheet' type='text/css'>
+     <link rel="stylesheet" type="text/css" href="{% static 'music/styles.css' %}"/> 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Arvo|Dosis:300|Hind" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:300|Work+Sans" rel="stylesheet">
+    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
+    <title></title>
+    <style>
+        
+        
+  .dropdown .dropbtn {
+  cursor: pointer;
+  font-size: 16px;  
+  border: none;
+  outline: none;
+  color: white;
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+}   
+  .navbar a:hover, .dropdown:hover .dropbtn, .dropbtn:focus {
+  background-color: red;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+.show {
+  display: block;
+}      
+        
+        
+    </style>
+    <script>
+
+function myFunction() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
+
+
+window.onclick = function(e) {
+  if (!e.target.matches('.dropbtn')) {
+  var myDropdown = document.getElementById("myDropdown");
+    if (myDropdown.classList.contains('show')) {
+      myDropdown.classList.remove('show');
+    }
+  }
+}
+</script>
+</head>
+<body>
+<div class="top_bar" style="padding-top:20px; height:90px; color:#191919;">
+    <ul class="main_title" style="">
+    <h1 class="musicbase" style="margin-top:10px; font-size:47px; margin-right:60px">
+    MusicBase
+    </h1>
+    <form class="search_bar" style="width: 304px; margin-top:30px; margin-left:660px" role="search" method="get" action="search">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="q" value="{{ request.GET.q }}"/>
+                </div>
+            </form>
+    </ul>
+    <ul class="main_items" style="color:EAEAEA; margin-top:20px; margin-right:0px; margin-left:80px">
+    <h5 class="home_tab" style="color:EAEAEA; margin-left:-40px; margin-right:-10px; margin-top:-70px"><a class="home_tab"href="{% url 'index' %}">Home</a></h5>
+    <h5 class="artists_tab" style="color:EAEAEA; margin-right:-10px"><a class="artists_tab"href="{% url 'artists' %}">Artists</a></h5>
+    <h5 class="albums_tab" style="color:EAEAEA; margin-right:-10px"><a class="albums_tab"href="{% url 'albums' %}">Albums</a></h5>
+    <div class="dropdown">
+    <h5 class="genres_tab" style="color:EAEAEA; margin-right:-10px" onclick="myFunction()"><a class="genres_tab"href="{% url 'genres' %}">Genres</a></h5>
+    <i class="fa fa-caret-down"></i>
+    <div class="dropdown-content" id="myDropdown">
+    <a href="#">Maps</a>
+    
+    </div>
+    </div>
+    
+    
+    <h5 class="ratings_tab" style="color:EAEAEA; margin-right:-10px"><a class="ratings_tab"href="">Charts</a></h5>
+    </ul>
+            
+        <li class="search_button">
+                <button type="submit" style="margin-top:-12px; height:38px; margin-left:1260px;" id="search_button">Search</button>
+       </li> 
+       
+       <a href="#">
+          <span class="glyphicon glyphicon-menu-hamburger" style="margin-left:1480px; margin-top:-33px; font-size: 27px; color:white;"></span>
+        </a>
+     <a href="#">   
+    <i class='fas fa-user-alt' style='font-size:25px; margin-left:1420px; padding-top:-20px; margin-top:-31px; margin-bottom:100px; color:white;' href="{% url 'admin:index' %}"></i>
+    </a>
+    
+</div> 
+
+
+           
+<!-- Prints artists and genres. This format and content is temporary, just so all of the data entry can be seen in the mean time. -->
+
+ <ul class="data_list" style="margin-left:-10px; color:#E5E5E5;">
+     
+    
+    
+    
+    <!-- When we get some albums in the db they will go here to appear on the page -->
+    
+    <h3 style="margin-left:290px; margin-top:-50px;">Genres</h3>
+    
+    <h5>
+    <div style="width:800px;
+    height:120px;
+    background: #373333;
+    margin-left:240px;
+    border: 0.5px solid #E5E5E5;
+    -webkit-box-shadow: inset 0px -80px 45px -36px rgba(0,0,0,0.8);
+-moz-box-shadow: inset 0px -80px 45px -36px rgba(0,0,0,0.8);
+box-shadow: inset 0px -80px 45px -36px rgba(0,0,0,0.8);
+    ">    
+    <h1 style="margin-left:7px;margin-top:10px;"><a href ="/admin/music/genre/{{ Genres.id }}" style="color:#E5E5E5;">Ambient</a></h1>
+    <h5>Ambient is a style of music that focuses on emphasizing sound over structure or rhythm.</h5>
+    <h5>Ambient music aims to create a certain aesthetic or mood and usually contains no vocals,</h5>
+    <h5 style="opacity:0.2;">although vocal ambient has been done before. Ambient music does not focus on any part...</h5>
+    </div>
+    <div style="width:800px;
+    height:130px;
+    background: #373333;
+    margin-left:240px;
+    border: 0.5px solid #E5E5E5;
+    -webkit-box-shadow: inset 0px -80px 45px -36px rgba(0,0,0,0.8);
+-moz-box-shadow: inset 0px -80px 45px -36px rgba(0,0,0,0.8);
+box-shadow: inset 0px -80px 45px -36px rgba(0,0,0,0.8);
+    ">
+    <h1 style="margin-left:7px;"><a href ="/admin/music/genre/{{ Genres.id }}" style="color:#E5E5E5;">Blues</a></h1>
+    <h5>Blues music originated in the 19th century on southern plantations by African-American slaves and</h5>
+    <h5>sharecroppers. The music descends primarily from work songs and narrative ballads of hardship and</h5>
+    <h5 style="opacity:0.2;">adversity. Most blues music is comprised of 12 bars and a specific series of notes, known as the...</h5>
+    
+    </div>
+    <div style="width:800px;
+    height:130px;
+    background: #373333;
+    margin-left:240px;
+    border: 0.5px solid #E5E5E5;
+    -webkit-box-shadow: inset 0px -80px 45px -36px rgba(0,0,0,0.8);
+-moz-box-shadow: inset 0px -80px 45px -36px rgba(0,0,0,0.8);
+box-shadow: inset 0px -80px 45px -36px rgba(0,0,0,0.8);
+    ">
+    <h1 style="margin-left:7px"><a href ="/admin/music/genre/{{ Genres.id }}" style="color:#E5E5E5;">Classical</a></h1>
+    <h5>Classical Music (aka Formal music) is a blanket genre that encompasses much of the oldest forms of</h5>
+    <h5>music dating back to the Renaissance and even Medieval eras, although the term "classical music"</h5>
+    <h5 style="opacity:0.2;">was not used until the early 19th century. The term is broad and given the wide range of...</h5>
+    </div>
+    <div style="width:800px;
+    height:130px;
+    background: #373333;
+    margin-left:240px;
+    border: 0.5px solid #E5E5E5;
+    -webkit-box-shadow: inset 0px -80px 45px -36px rgba(0,0,0,0.8);
+-moz-box-shadow: inset 0px -80px 45px -36px rgba(0,0,0,0.8);
+box-shadow: inset 0px -80px 45px -36px rgba(0,0,0,0.8);
+    ">
+    <h1 style="margin-left:7px"><a href ="/admin/music/genre/{{ Genres.id }}" style="color:#E5E5E5;">Comedy</a></h1>
+    <h5>Musical Comedy is a genre that can be used to describe music in which humor is a vital</h5>
+    <h5>characteristic. Comedy Rap and Comedy Rock are two of the most notable styles that have</h5>
+    <h5 style="opacity:0.2;">seen popularity even in the mainstream. Some Musical Comedy artists such as Bo Burnham...</h5>
+    
+    </div>
+    <div style="width:800px;
+    height:130px;
+    background: #373333;
+    margin-left:240px;
+    border: 0.5px solid #E5E5E5;
+    -webkit-box-shadow: inset 0px -80px 45px -36px rgba(0,0,0,0.8);
+-moz-box-shadow: inset 0px -80px 45px -36px rgba(0,0,0,0.8);
+box-shadow: inset 0px -80px 45px -36px rgba(0,0,0,0.8);
+    ">  
+    <h1 style="margin-left:7px"><a href ="/admin/music/genre/{{ Genres.id }}" style="color:#E5E5E5;">Country</a></h1>
+    <h5>Country music is a genre of music that originated in the American south, particularly along</h5>
+    <h5>the Appalachian Mountains. The genre's creation was influenced by Irish Folk Music and English</h5>
+    <h5 style="opacity:0.2;">Folk Music by immigrants who brought their musical instruments and settled in the American South...</h5> 
+    </div>
+    <div style="width:800px;
+    height:130px;
+    background: #373333;
+    margin-left:240px;
+    border: 0.5px solid #E5E5E5;
+    -webkit-box-shadow: inset 0px -80px 45px -36px rgba(0,0,0,0.8);
+-moz-box-shadow: inset 0px -80px 45px -36px rgba(0,0,0,0.8);
+box-shadow: inset 0px -80px 45px -36px rgba(0,0,0,0.8);
+    ">
+    <h1 style="margin-left:7px"><a href ="/admin/music/genre/{{ Genres.id }}" style="color:#E5E5E5;">Dance</a></h1>
+    <h5>Dance is a blanket genre that covers the modern forms of dance music since the creation of Disco</h5>
+    <h5>in the 1970's. There was music made for dancing before this time, which can be traced back to Chubby</h5>
+    <h5 style="opacity:0.2;">Checker's 'The Twist' and even earlier Jazz and Swing Music. However, the genre Dance typically...</h5>
+    </div>
+    <div style="width:800px;
+    height:130px;
+    background: #373333;
+    margin-left:240px;
+    border: 0.5px solid #E5E5E5;
+    -webkit-box-shadow: inset 0px -80px 45px -36px rgba(0,0,0,0.8);
+-moz-box-shadow: inset 0px -80px 45px -36px rgba(0,0,0,0.8);
+box-shadow: inset 0px -80px 45px -36px rgba(0,0,0,0.8);
+    ">
+    <h1 style="margin-left:7px"><a href ="/admin/music/genre/{{ Genres.id }}" style="color:#E5E5E5;">Electronic</a></h1>
+    <h5>Electronic music is music primarily employing electronic musical instruments & technology, digital</h5>
+    <h5>instruments, and sound manipulations. It was originally pioneered in the late 19th century to the</h5>
+    <h5 style="opacity:0.2;">early 20th century by avant-garde classical composers. Into the late 1960's Pop and Rock bands...</h5> 
+    </div>
+    <div style="width:800px;
+    height:130px;
+    background: #373333;
+    margin-left:240px;
+    border: 0.5px solid #E5E5E5;
+    -webkit-box-shadow: inset 0px -80px 45px -36px rgba(0,0,0,0.8);
+-moz-box-shadow: inset 0px -80px 45px -36px rgba(0,0,0,0.8);
+box-shadow: inset 0px -80px 45px -36px rgba(0,0,0,0.8);
+    ">
+    <h1 style="margin-left:7px"><a href ="/admin/music/genre/{{ Genres.id }}" style="color:#E5E5E5;">Experimental</a></h1>
+    <h5>Experimental music is used to describe music that pushes the boundaries of their genre through</h5>
+    <h5>radical and unusual sounds and production. The practice became distinguished in the mid-20th</h5>
+    <h5 style="opacity:0.2;">century among classical music artists. John Cage was one of the earliest artists to use the term...</h5> 
+    </div>
+    <div style="width:800px;
+    height:130px;
+    background: #373333;
+    margin-left:240px;
+    border: 0.5px solid #E5E5E5;
+    -webkit-box-shadow: inset 0px -80px 45px -36px rgba(0,0,0,0.8);
+-moz-box-shadow: inset 0px -80px 45px -36px rgba(0,0,0,0.8);
+box-shadow: inset 0px -80px 45px -36px rgba(0,0,0,0.8);
+    ">
+    <h1 style="margin-left:7px"><a href ="/admin/music/genre/{{ Genres.id }}" style="color:#E5E5E5;">Field Recordings</a></h1>
+    <h5>Field Recordings is a term used to describe audio recordings that are created to capture</h5>
+    <h5>the sounds of and particular environment. Field Recordings of natural sounds is also known</h5>
+    <h5 style="opacity:0.2;">as Phonography. Much of the commonly captured sounds include Nature Sounds such as water...</h5>
+    </div>
+    <div style="width:800px;
+    height:130px;
+    background: #373333;
+    margin-left:240px;
+    border: 0.5px solid #E5E5E5;
+    -webkit-box-shadow: inset 0px -80px 45px -36px rgba(0,0,0,0.8);
+-moz-box-shadow: inset 0px -80px 45px -36px rgba(0,0,0,0.8);
+box-shadow: inset 0px -80px 45px -36px rgba(0,0,0,0.8);
+    ">
+    <h1 style="margin-left:7px"><a href ="/admin/music/genre/{{ Genres.id }}" style="color:#E5E5E5;">Folk</a></h1>
+    <h5>Folk music is a broad term used to describe music transmitted through oral tradition.</h5>
+    <h5>Historically, folk music has been accompanied by social activities and sang in small social settings.</h5>
+    <h5 style="opacity:0.2;">Folk music can be separated into two main categories, Traditional Folk music and Contemporary Folk...</h5> 
+    </div>
+    <div style="width:800px;
+    height:130px;
+    background: #373333;
+    margin-left:240px;
+    border: 0.5px solid #E5E5E5;
+    -webkit-box-shadow: inset 0px -80px 45px -36px rgba(0,0,0,0.8);
+-moz-box-shadow: inset 0px -80px 45px -36px rgba(0,0,0,0.8);
+box-shadow: inset 0px -80px 45px -36px rgba(0,0,0,0.8);
+    ">
+    <h1 style="margin-left:7px"><a href ="/admin/music/genre/{{ Genres.id }}" style="color:#E5E5E5;">Hip-hop</a></h1>
+    <h5>Hip-Hop has become a global phenomenon in recent decades stealing the show from Pop and Rock</h5>
+    <h5>music by dominating both the charts and the underground. Hip-Hop primarily originated in the</h5>
+    <h5 style="opacity:0.2;">Bronx regions of New York City in the 1970's. The birth of the genre was directly correlated...</h5>
+    </div>
+    <div style="width:800px;
+    height:130px;
+    background: #373333;
+    margin-left:240px;
+    border: 0.5px solid #E5E5E5;
+    -webkit-box-shadow: inset 0px -80px 45px -36px rgba(0,0,0,0.8);
+-moz-box-shadow: inset 0px -80px 45px -36px rgba(0,0,0,0.8);
+box-shadow: inset 0px -80px 45px -36px rgba(0,0,0,0.8);
+    ">
+    <h1 style="margin-left:7px"><a href ="/admin/music/genre/{{ Genres.id }}" style="color:#E5E5E5;">Industrial</a></h1>
+    <h5>Industrial music was birthed in the 1970's in the United Kingdom. Similar to Punk music, artists</h5>
+    <h5>working within the genre aimed to break the mold of society and cause the listener to think for</h5>
+    <h5 style="opacity:0.2;">themselves and question the world around them. This also includes any preconceptions about the...</h5> 
+    </div>
+    <div style="width:800px;
+    height:130px;
+    background: #373333;
+    margin-left:240px;
+    border: 0.5px solid #E5E5E5;
+    -webkit-box-shadow: inset 0px -80px 45px -36px rgba(0,0,0,0.8);
+-moz-box-shadow: inset 0px -80px 45px -36px rgba(0,0,0,0.8);
+box-shadow: inset 0px -80px 45px -36px rgba(0,0,0,0.8);
+    ">
+    <h1 style="margin-left:7px"><a href ="/admin/music/genre/{{ Genres.id }}" style="color:#E5E5E5;">Jazz</a></h1>
+    <h5>Jazz music a genre of music that originated in the American South (particularly in New Orleans)</h5>
+    <h5>during the late 1800's and early 1900's. Many early New Orleans brass bands would play in the</h5>
+    <h5 style="opacity:0.2;">bars and dancehalls of "Storyville", the cities red-light district at the time. During the early...</h5> 
+    </div>
+    <div style="width:800px;
+    height:130px;
+    background: #373333;
+    margin-left:240px;
+    border: 0.5px solid #E5E5E5;
+    -webkit-box-shadow: inset 0px -80px 45px -36px rgba(0,0,0,0.8);
+-moz-box-shadow: inset 0px -80px 45px -36px rgba(0,0,0,0.8);
+box-shadow: inset 0px -80px 45px -36px rgba(0,0,0,0.8);
+    ">
+    <h1 style="margin-left:7px"><a href ="/admin/music/genre/{{ Genres.id }}" style="color:#E5E5E5;">Metal</a></h1>
+    <h5>Metal music originated in the late 1960's, evolving from important Blues Rock bands of the time,</h5>
+    <h5>such as Led Zeppelin, Cream, and The Who. There is much disagreement about what band can be</h5>
+    <h5 style="opacity:0.2;"> credited as the first to evolve from Rock and into Metal, but typically Black Sabbath, Led...</h5>
+    </div>
+    <div style="width:800px;
+    height:130px;
+    background: #373333;
+    margin-left:240px;
+    border: 0.5px solid #E5E5E5;
+    -webkit-box-shadow: inset 0px -80px 45px -36px rgba(0,0,0,0.8);
+-moz-box-shadow: inset 0px -80px 45px -36px rgba(0,0,0,0.8);
+box-shadow: inset 0px -80px 45px -36px rgba(0,0,0,0.8);
+    ">
+    <h1 style="margin-left:7px"><a href ="/admin/music/genre/{{ Genres.id }}" style="color:#E5E5E5;">New Age</a></h1>
+    <h5>New Age is a genre of music that aims to create relaxation for the listener. It is often</h5>
+    <h5>listened to during yoga, reading, meditation, or for stress management. The genres style</h5>
+    <h5 style="opacity:0.2;">can take many forms including various acoustic styles, as well as electronic. New Age...</h5>
+    </div>
+    <div style="width:800px;
+    height:130px;
+    background: #373333;
+    margin-left:240px;
+    border: 0.5px solid #E5E5E5;
+    -webkit-box-shadow: inset 0px -80px 45px -36px rgba(0,0,0,0.8);
+-moz-box-shadow: inset 0px -80px 45px -36px rgba(0,0,0,0.8);
+box-shadow: inset 0px -80px 45px -36px rgba(0,0,0,0.8);
+    ">
+    <h1 style="margin-left:7px"><a href ="/admin/music/genre/{{ Genres.id }}" style="color:#E5E5E5;">Pop</a></h1>
+    <h5>Pop is a genre that is tied to sales and mass appeal more than any other genre. Rather</h5>
+    <h5>than appealing to a particular sub-culture, Pop music generally strives to appeal to</h5>
+    <h5 style="opacity:0.2;">a general audience, and is often encouraged to include catchy and dance-oriented rhythms...</h5>
+    </div>
+    <div style="width:800px;
+    height:130px;
+    background: #373333;
+    margin-left:240px;
+    border: 0.5px solid #E5E5E5;
+    -webkit-box-shadow: inset 0px -80px 45px -36px rgba(0,0,0,0.8);
+-moz-box-shadow: inset 0px -80px 45px -36px rgba(0,0,0,0.8);
+box-shadow: inset 0px -80px 45px -36px rgba(0,0,0,0.8);
+    ">
+    <h1 style="margin-left:7px"><a href ="/admin/music/genre/{{ Genres.id }}" style="color:#E5E5E5;">Psychedelia</a></h1>
+    <h5>Psychedelia (aka Psychedelic Music) refers to music that is heavily influenced by the altered</h5>
+    <h5>state of consciousness people experience while under the influence of psychedelic drugs such as</h5>
+    <h5 style="opacity:0.2;">LSD, psilocybin, mescaline, DMT, and to a lesser extent, marijuana. The music will typically enhance...</h5>
+    </div>
+    <div style="width:800px;
+    height:130px;
+    background: #373333;
+    margin-left:240px;
+    border: 0.5px solid #E5E5E5;
+    -webkit-box-shadow: inset 0px -80px 45px -36px rgba(0,0,0,0.8);
+-moz-box-shadow: inset 0px -80px 45px -36px rgba(0,0,0,0.8);
+box-shadow: inset 0px -80px 45px -36px rgba(0,0,0,0.8);
+    ">
+    <h1 style="margin-left:7px"><a href ="/admin/music/genre/{{ Genres.id }}" style="color:#E5E5E5;">Punk</a></h1>
+    <h5>Punk is a blanket genre that encapsulates all of the various styles of Punk music such as Art Punk,</h5>
+    <h5>Synthpunk, Punk Rock, etc. The style is typically known for its aggression and rawness along with</h5>
+    <h5 style="opacity:0.2;">rebellious and anti-authoritarian lyrics. Punk music is directly correlated with the attitudes and...</h5> 
+    </div>
+    <div style="width:800px;
+    height:130px;
+    background: #373333;
+    margin-left:240px;
+    border: 0.5px solid #E5E5E5;
+    -webkit-box-shadow: inset 0px -80px 45px -36px rgba(0,0,0,0.8);
+-moz-box-shadow: inset 0px -80px 45px -36px rgba(0,0,0,0.8);
+box-shadow: inset 0px -80px 45px -36px rgba(0,0,0,0.8);
+    ">
+    <h1 style="margin-left:7px"><a href ="/admin/music/genre/{{ Genres.id }}" style="color:#E5E5E5;">Regional</a></h1>
+    <h5>Regional Music refers to music that is created within a particular region and influenced by its</h5>
+    <h5>cultural traditions. Regional Music is an extremely broad blanket genre, that covers all of the</h5>
+    <h5 style="opacity:0.2;" >unique music created worldwide by various cultures of people, and that has not drifted outside of...</h5> 
+    </div>
+    <div style="width:800px;
+    height:130px;
+    background: #373333;
+    margin-left:240px;
+    border: 0.5px solid #E5E5E5;
+    -webkit-box-shadow: inset 0px -80px 45px -36px rgba(0,0,0,0.8);
+-moz-box-shadow: inset 0px -80px 45px -36px rgba(0,0,0,0.8);
+box-shadow: inset 0px -80px 45px -36px rgba(0,0,0,0.8);
+    ">
+    <h1 style="margin-left:7px"><a href ="/admin/music/genre/{{ Genres.id }}" style="color:#E5E5E5;">Rock</a></h1>
+    <h5>Rock music is one of the most popular and varied genres of music. Rock originated and became</h5>
+    <h5>popular in the United States in the mid 1950's by Chuck Berry who played some of the first</h5>
+    <h5 style="opacity:0.2;">Rock & Roll music. With the success of African-American Rock & Roll artists such as Chuck Berry...</h5>
+    </div>
+    <div style="width:800px;
+    height:130px;
+    background: #373333;
+    margin-left:240px;
+    border: 0.5px solid #E5E5E5;
+    -webkit-box-shadow: inset 0px -80px 45px -36px rgba(0,0,0,0.8);
+-moz-box-shadow: inset 0px -80px 45px -36px rgba(0,0,0,0.8);
+box-shadow: inset 0px -80px 45px -36px rgba(0,0,0,0.8);
+    ">
+    <h1 style="margin-left:7px"><a href ="/admin/music/genre/{{ Genres.id }}" style="color:#E5E5E5;">R&B</a></h1>
+    <h5>Rhythm & Blues, commonly abbreviated as R&B, is an umbrella term used to describe some of the</h5>
+   <h5 style="opacity:0.2;"> most popular music within African-American communities from the late 1940's to the present day.</h5>
+    <h5> Originally, only African-Americans were buying R&B records and there was no white radio play.</h5> 
+    </div>
+    <div style="width:800px;
+    height:130px;
+    background: #373333;
+    margin-left:240px;
+    border: 0.5px solid #E5E5E5;
+    -webkit-box-shadow: inset 0px -80px 45px -36px rgba(0,0,0,0.8);
+-moz-box-shadow: inset 0px -80px 45px -36px rgba(0,0,0,0.8);
+box-shadow: inset 0px -80px 45px -36px rgba(0,0,0,0.8);
+    ">
+    <h1 style="margin-left:7px"><a href ="/admin/music/genre/{{ Genres.id }}" style="color:#E5E5E5;">Singer/Songwriter</a></h1>
+    <h5>Singer/Songwriter is a term used to categorize artists who write and perform their own music.</h5>
+    <h5>This music is often self-accompanied by an acoustic guitar or piano. The term is typically used</h5>
+    <h5 style="opacity:0.2;">to describe songwriters working within Folk, Rock, Country, and Pop music. The arrangements...</h5>
+    </div>
+    <div style="width:800px;
+    height:130px;
+    background: #373333;
+    margin-left:240px;
+    border: 0.5px solid #E5E5E5;
+    -webkit-box-shadow: inset 0px -80px 45px -36px rgba(0,0,0,0.8);
+-moz-box-shadow: inset 0px -80px 45px -36px rgba(0,0,0,0.8);
+box-shadow: inset 0px -80px 45px -36px rgba(0,0,0,0.8);
+    ">
+    <h1 style="margin-left:7px"><a href ="/admin/music/genre/{{ Genres.id }}" style="color:#E5E5E5;">Ska</a></h1>
+    <h5>Ska originated in Jamaica in the late 1950's, and paved the way for the Rocksteady and Reggae</h5>
+    <h5>music to come. Ska began to develop out of American R&B and Jazz music through combination with</h5>
+   <h5 style="opacity:0.2;"> elements of Caribbean Mento and Calypso styles. Ska can be characterized by off-beat rhythms...</h5>
+    </div>
+    <div style="width:800px;
+    height:130px;
+    background: #373333;
+    margin-left:240px;
+    border: 0.5px solid #E5E5E5;
+    -webkit-box-shadow: inset 0px -80px 45px -36px rgba(0,0,0,0.8);
+-moz-box-shadow: inset 0px -80px 45px -36px rgba(0,0,0,0.8);
+box-shadow: inset 0px -80px 45px -36px rgba(0,0,0,0.8);
+    ">
+    <h1 style="margin-left:7px"><a href ="/admin/music/genre/{{ Genres.id }}" style="color:#E5E5E5;">Spoken Word</a></h1>
+    <h5>Spoken Word in music has a strong emphasis on spoken word passages throughout the recording.</h5>
+    <h5>This can be done through stories, poetry, speeches, or audio narratives within the music. The</h5>
+    <h5 style="opacity:0.2;">music can include musical backing of various sounds, however the primary focus remains the...</h5>
+    </div>
+    
+    
+    
+    </h5>
+     
+    
+ </ul>    
+
+{% block body %}
+{% endblock %}
+ 
+</body>
+<div style="width:100%;
+    position:absolute;
+    bottom:0px;
+    background: rgba(7, 7, 7, 0.99);
+    padding-bottom:0px;
+    margin-bottom:-49500px;
+    height: 100px;">
+    
+    <h3 style="margin-left:-1200px; color:white;">
+    &copy; 2019 MusicBase.io
+    </h3>
+    <a href="#" style="margin-left:250px; margin-top:-77px;">
+    <h5 style="color:white;">Privacy Notice</h5>
+    </a>
+    <a href="#" style="margin-left:380px; margin-top:-35.3px;">
+    <h5 style="color:white;">Conditions of Use</h5>
+    </a>
+    <a href="#" style="margin-left:535px; margin-top:-35.3px;">
+    <h5 style="color:white;">Donations</h5>
+    </a>
+    <a href="#" style="margin-left:640px; margin-top:-35.3px;">
+    <h5 style="color:white;">Our Team</h5>
+    </a>
+    <a href="#" style="margin-left:740px; margin-top:-35.3px;">
+    <h5 style="color:white;">Twitter</h5>
+    </a>
+  </div> 
+</html>

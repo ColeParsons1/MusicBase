@@ -1,0 +1,185 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+		<!-- Origin Trial Token, feature = WebVR (For Chrome M62+), origin = https://threejs.org -->
+		<meta http-equiv="origin-trial" data-feature="WebVR (For Chrome M62+)" data-expires="2018-06-19" content="Alxt96tYGgIr9l6EXU0eeI360zcmzOY6Kuo3kcTfBGIRDOQbgFIZKRQ1joExQ74WZr1einsE+cUMHgSclNHCQQ4AAABQeyJvcmlnaW4iOiJodHRwczovL3RocmVlanMub3JnOjQ0MyIsImZlYXR1cmUiOiJXZWJWUjEuMU02MiIsImV4cGlyeSI6MTUyOTM5NzgyOH0=">
+		<!-- Origin Trial Token, feature = WebXR Device API, origin = https://threejs.org -->
+		<meta http-equiv="origin-trial" data-feature="WebXR Device API" data-expires="2018-06-15" content="AtJH9g6nn0B87bnjJt+9m1joZXEYDmLSlRvtMr5qJD52hMcm3S86S7jg5I7y2I5cgQglE0rzsXzti5DECQLb8QkAAABQeyJvcmlnaW4iOiJodHRwczovL3RocmVlanMub3JnOjQ0MyIsImZlYXR1cmUiOiJXZWJYUkRldmljZSIsImV4cGlyeSI6MTUyOTA4NDY2OH0=">
+		<!-- Origin Trial Token, feature = WebXR Gamepad Support, origin = https://threejs.org -->
+		<meta http-equiv="origin-trial" data-feature="WebXR Gamepad Support" data-expires="2018-06-15" content="Aihhr0yXkVlCKF0DIpTbH8WX7ZmEexUhI/95+t8aoLfvBkePMiZ/iOoDPU3xefyfuczkDahH1L6eiPvRsuzITAAAAABYeyJvcmlnaW4iOiJodHRwczovL3RocmVlanMub3JnOjQ0MyIsImZlYXR1cmUiOiJXZWJYUkdhbWVwYWRTdXBwb3J0IiwiZXhwaXJ5IjoxNTI5MDg0NjY4fQ==">
+    <title>{% block title %}MB{% endblock %}</title>
+    {% load staticfiles %}
+    <link rel="shortcut icon" type="image/png" href="{%  static 'favicon.ico' %}"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Satisfy' rel='stylesheet' type='text/css'>
+     <link rel="stylesheet" type="text/css" href="{% static 'music/styles.css' %}"/> 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Arvo|Dosis:300|Hind" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:300|Work+Sans" rel="stylesheet">
+    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
+    <title></title>
+    <style>
+        
+        
+  .dropdown .dropbtn {
+  cursor: pointer;
+  font-size: 16px;  
+  border: none;
+  outline: none;
+  color: white;
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+}   
+  .navbar a:hover, .dropdown:hover .dropbtn, .dropbtn:focus {
+  background-color: red;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+.show {
+  display: block;
+}      
+        
+        
+    </style>
+    <script>
+
+function myFunction() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
+
+
+window.onclick = function(e) {
+  if (!e.target.matches('.dropbtn')) {
+  var myDropdown = document.getElementById("myDropdown");
+    if (myDropdown.classList.contains('show')) {
+      myDropdown.classList.remove('show');
+    }
+  }
+}
+</script>
+</head>
+<body>
+<div class="top_bar" style="padding-top:20px; height:90px">
+    <ul class="main_title" style="">
+    <h1 class="musicbase" style="margin-top:10px; font-size:47px; margin-right:60px">
+    MusicBase
+    </h1>
+    <form class="search_bar" style="width: 304px; margin-top:30px; margin-left:660px" role="search" method="get" action="search">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="q" value="{{ request.GET.q }}"/>
+                </div>
+            </form>
+    </ul>
+    <ul class="main_items" style="color:EAEAEA; margin-top:20px; margin-right:0px; margin-left:80px">
+    <h5 class="home_tab" style="color:EAEAEA; margin-left:-40px; margin-right:-10px; margin-top:-70px"><a class="home_tab"href="{% url 'index' %}">Home</a></h5>
+    <h5 class="artists_tab" style="color:EAEAEA; margin-right:-10px"><a class="artists_tab"href="{% url 'artists' %}">Artists</a></h5>
+    <h5 class="albums_tab" style="color:EAEAEA; margin-right:-10px"><a class="albums_tab"href="{% url 'albums' %}">Albums</a></h5>
+    <div class="dropdown">
+    <h5 class="genres_tab" style="color:EAEAEA; margin-right:-10px" onclick="myFunction()"><a class="genres_tab"href="{% url 'genres' %}">Genres</a></h5>
+    <i class="fa fa-caret-down"></i>
+    <div class="dropdown-content" id="myDropdown">
+    <a href="#">Maps</a>
+    
+    </div>
+    </div>
+    
+    
+    <h5 class="ratings_tab" style="color:EAEAEA; margin-right:-10px"><a class="ratings_tab"href="">Charts</a></h5>
+    </ul>
+            
+        <li class="search_button">
+                <button type="submit" style="margin-top:-12px; height:38px; margin-left:1260px;" id="search_button">Search</button>
+       </li>
+       
+       <a href="#">
+          <span class="glyphicon glyphicon-menu-hamburger" style="margin-left:1480px; margin-top:-33px; font-size: 27px; color:#E0E0E0;"></span>
+        </a>
+     <a href="#">   
+    <i class='fas fa-user-alt' style='font-size:25px; margin-left:1420px; padding-top:-20px; margin-top:-31px; margin-bottom:100px; color:#E0E0E0;'></i>
+    </a>
+    
+</div> 
+
+
+           
+<!-- Prints artists and genres. This format and content is temporary, just so all of the data entry can be seen in the mean time. -->
+
+ <ul class="data_list" style="margin-left:-10px; color:#E5E5E5;">
+     
+    <h3>Artists</h3>
+    {% for Artist in all_Artists %}
+     <h5>
+    <li style="margin-left:-60px"><a href ="/admin/music/artist/{{ Artist.id }}" style="color:#E5E5E5;">{{ Artist.Stage_Name }}</a></li>
+    </h5>
+    {% endfor %} 
+    
+    <!-- When we get some albums in the db they will go here to appear on the page -->
+    
+    
+    {% for Genres in all_Genres %}
+    <h5>
+    <li style="margin-left:-60px"><a href ="/admin/music/genre/{{ Genre.id }}">{{ Genre.Genre_Name }}</a></li>
+    </h5>
+    {% endfor %} 
+    
+ </ul>   
+<div style="width:100%;
+    position:absolute;
+    bottom:-10px;
+    background: rgba(7, 7, 7, 0.99);
+    padding-bottom:0px;
+    
+    margin-bottom:-2000px;
+    height: 100px;">
+    
+    <h3 style="margin-left:-1200px; color:white;">
+    &copy; 2019 MusicBase.io
+    </h3>
+    <a href="#" style="margin-left:250px; margin-top:-77px;">
+    <h5 style="color:white;">Privacy Notice</h5>
+    </a>
+    <a href="#" style="margin-left:380px; margin-top:-35.3px;">
+    <h5 style="color:white;">Conditions of Use</h5>
+    </a>
+    <a href="#" style="margin-left:535px; margin-top:-35.3px;">
+    <h5 style="color:white;">Donations</h5>
+    </a>
+    <a href="#" style="margin-left:640px; margin-top:-35.3px;">
+    <h5 style="color:white;">Our Team</h5>
+    </a>
+    <a href="#" style="margin-left:740px; margin-top:-35.3px;">
+    <h5 style="color:white;">Twitter</h5>
+    </a>
+  </div> 
+{% block body %}
+{% endblock %}
+</body>
+</html>
